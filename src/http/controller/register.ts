@@ -28,6 +28,8 @@ export const registerController = async (
       return response.status(409).send({ message: error.message })
     }
 
+    throw error
+
     return response.status(500).send()
   }
 

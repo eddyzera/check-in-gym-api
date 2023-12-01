@@ -25,7 +25,7 @@ export const registerController = async (
     })
   } catch (error) {
     if (error instanceof UserAlreadyExists) {
-      return response.status(409).send()
+      return response.status(409).send({ message: error.message })
     }
 
     return response.status(500).send()

@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import { Prisma, User } from '@prisma/client'
 import { prisma } from '@/lib/prisma'
 import { UserRepositories } from './types/userRepositories'
 
@@ -19,5 +19,9 @@ export class PrismaUsersRepository implements UserRepositories {
     })
 
     return userWithSameEmail
+  }
+
+  findById(userId: string): Promise<User | null> {
+    throw new Error('Method not implemented')
   }
 }

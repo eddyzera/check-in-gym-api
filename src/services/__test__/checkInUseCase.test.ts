@@ -16,7 +16,6 @@ describe('User Register Use Case', () => {
     vi.useRealTimers()
   })
   it('should be able to check in', async () => {
-    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0))
     const { checkIn } = await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',
@@ -28,6 +27,7 @@ describe('User Register Use Case', () => {
   })
 
   it('should not be able to check in in twice on the same day', async () => {
+    vi.setSystemTime(new Date(2022, 0, 20, 8, 0, 0))
     await sut.execute({
       gymId: 'gym-01',
       userId: 'user-01',

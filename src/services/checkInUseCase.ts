@@ -1,7 +1,7 @@
-import { UserRepositories } from '@/repositories/types/userRepositories'
 import { InvalidCredentialsError } from './errors/invalidCredentialsError'
 import { compare } from 'bcryptjs'
 import { CheckIn } from '@prisma/client'
+import { CheckInRepositories } from '@/repositories/types/checkInRepositories'
 
 interface CheckInUseCaseRequest {
   userId: string
@@ -12,26 +12,19 @@ interface CheckInUseCaseResponse {
 }
 
 export class CheckInUseCase {
-  constructor(private usersRepository: UserRepositories) {}
+  constructor(private checkInRepository: CheckInRepositories) {}
 
   async execute({
-    email,
-    password,
+    userId,
+    gymId,
   }: CheckInUseCaseRequest): Promise<CheckInUseCaseResponse> {
-    const user = await this.usersRepository.findByEmail(email)
-
-    if (!user) {
-      throw new InvalidCredentialsError()
-    }
-
-    const doesPasswordMatches = await compare(password, user.password_hash)
-
-    if (!doesPasswordMatches) {
-      throw new InvalidCredentialsError()
-    }
+    const checkIn = await this.checkInRepository.create({
+      gym_id: gymId,
+      user_id: userId,
+    })
 
     return {
-      user,
+      checkIn,
     }
   }
 }

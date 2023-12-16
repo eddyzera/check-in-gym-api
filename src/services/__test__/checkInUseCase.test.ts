@@ -1,5 +1,5 @@
 import { expect, describe, it, beforeEach } from 'vitest'
-import { CheckInUseCase } from '../checkinUseCase'
+import { CheckInUseCase } from '../checkInUseCase'
 import { InMemoryCheckInRepository } from '@/test/inMemoryDataBase/inMemoryCheckInRepository'
 
 let checkInRepository: InMemoryCheckInRepository

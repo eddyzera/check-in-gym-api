@@ -1,3 +1,11 @@
+/**
+ * First, the function checks whether the two coordinates are equal and returns 0 if so, indicating that the distance between them is zero.
+
+The function then converts the coordinates from degrees to radians and calculates the difference in longitude between the two coordinates. The Haversine formula is used to calculate the distance between the two points. This formula uses the law of cosines to calculate the distance between two points on a sphere, such as the Earth.
+
+The distance is then converted to miles and then kilometers, and the result is returned as a floating point number representing the distance in kilometers between the two coordinates.
+*/
+
 export interface Coordinate {
   latitude: number
   longitude: number

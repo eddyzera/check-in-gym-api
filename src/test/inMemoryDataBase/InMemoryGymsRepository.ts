@@ -1,7 +1,7 @@
 import { GymsRepositories } from '@/repositories/types/gymsRepositories'
 import { Gym } from '@prisma/client'
 
-export class InMemoryUsersRepository implements GymsRepositories {
+export class InMemoryGymsRepository implements GymsRepositories {
   public items: Gym[] = []
 
   async findById(gymId: string) {

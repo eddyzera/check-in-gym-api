@@ -3,6 +3,8 @@ import { Decimal } from '@prisma/client/runtime/library'
 import { CheckInUseCase } from '../checkInUseCase'
 import { InMemoryCheckInRepository } from '@/test/inMemoryDataBase/inMemoryCheckInRepository'
 import { InMemoryGymsRepository } from '@/test/inMemoryDataBase/InMemoryGymsRepository'
+import { MaxDistanceError } from '../errors/maxDistanceErrors'
+import { ResourceNotFoundError } from '../errors/resourceNotFoundError'
 
 let checkInRepository: InMemoryCheckInRepository
 let gymsRepository: InMemoryGymsRepository
@@ -91,7 +93,6 @@ describe('User Register Use Case', () => {
       longitude: new Decimal(-46.1900059),
       phone: 'gym-phone',
     })
-    // -23.5213529,-46.1900059
 
     await expect(() =>
       sut.execute({
@@ -100,6 +101,17 @@ describe('User Register Use Case', () => {
         userLatitude: -23.5411998,
         userLongitude: -46.1637413,
       }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(MaxDistanceError)
+  })
+
+  it('should not be able if there is no gym', async () => {
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-03',
+        userId: 'user-01',
+        userLatitude: -23.5411998,
+        userLongitude: -46.1637413,
+      }),
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })

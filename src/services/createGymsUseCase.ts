@@ -1,5 +1,4 @@
 import { GymsRepositories } from '@/repositories/types/gymsRepositories'
-import { UserAlreadyExists } from './errors/userAlreadyExistsError'
 import { Gym } from '@prisma/client'
 
 interface CreateGymUseCaseRequest {

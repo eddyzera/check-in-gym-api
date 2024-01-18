@@ -1,8 +1,12 @@
+import { PrismaClient } from '@prisma/client'
 import 'dotenv/config'
+import { execSync } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import type { Environment } from 'vitest'
 
 // postgresql://docker:docker@localhost:5432/gym-api?schema=public
+
+const prisma = new PrismaClient()
 
 function generateDataBaseURL(schema: string) {
   if (!process.env.DATABASE_URL) {
@@ -21,11 +25,18 @@ export default <Environment>(<unknown>{
   transformMode: 'web',
   async setup() {
     const schema = randomUUID()
-    console.log(`generateDataBaseURL =>`, generateDataBaseURL(schema))
+    const databaseURL = generateDataBaseURL(schema)
+
+    process.env.DATABASE_URL = databaseURL
+
+    execSync('npx prisma migrate deploy')
 
     return {
       async teardown() {
-        console.log('Teardown')
+        await prisma.$executeRawUnsafe(
+          `DROP SCHEMA IF EXISTS "${schema}" CASCADE`,
+        )
+        await prisma.$disconnect()
       },
     }
   },

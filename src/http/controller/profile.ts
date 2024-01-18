@@ -6,6 +6,6 @@ export const profile = async (
 ) => {
   console.log(`headers =>`, request.headers)
   await request.jwtVerify()
-  console.log(`user =>`, request.user)
+  console.log(`user =>`, request.user.sub)
   return response.status(200).send()
 }

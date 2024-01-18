@@ -4,5 +4,8 @@ export const profile = async (
   request: FastifyRequest,
   response: FastifyReply,
 ) => {
+  console.log(`headers =>`, request.headers)
+  await request.jwtVerify()
+  console.log(`user =>`, request.user)
   return response.status(200).send()
 }

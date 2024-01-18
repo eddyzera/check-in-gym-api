@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify'
-import { registerController } from '@/http/controller/register'
-import { authenticate } from '@/http/controller/authenticate'
-import { profile } from './controller/profile'
-import { verifyJWT } from './middleware/verifyJwt'
+import { registerController } from '@/http/controller/users/register'
+import { authenticate } from '@/http/controller/users/authenticate'
+import { profile } from './profile'
+import { verifyJWT } from '../../middleware/verifyJWT'
 
 export async function appRoutes(app: FastifyInstance) {
   app.post('/users', registerController)

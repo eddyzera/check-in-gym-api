@@ -10,7 +10,7 @@ export const searchController = async (
     query: z.string(),
     page: z.coerce.number().min(1).default(1),
   })
-  const { query, page } = searchGymsQuerySchema.parse(request.body)
+  const { query, page } = searchGymsQuerySchema.parse(request.query)
 
   const searchGymUseCase = makeSearchGymUseCase()
   const { gyms } = await searchGymUseCase.execute({

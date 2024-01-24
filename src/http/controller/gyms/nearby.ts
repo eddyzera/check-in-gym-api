@@ -14,7 +14,7 @@ export const nearbyController = async (
       return Math.abs(value) <= 180
     }),
   })
-  const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.body)
+  const { latitude, longitude } = nearbyGymsQuerySchema.parse(request.query)
 
   const fetchNearbyGymUseCase = makeFetchNearbyGymsUseCase()
   const { gyms } = await fetchNearbyGymUseCase.execute({

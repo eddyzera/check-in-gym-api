@@ -1,6 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeCreateGymUseCase } from '@/services/factories/makeCreateGymUseCase'
 import { makeCheckInUseCase } from '@/services/factories/makeCheckInUseCase'
 
 export const createController = async (
